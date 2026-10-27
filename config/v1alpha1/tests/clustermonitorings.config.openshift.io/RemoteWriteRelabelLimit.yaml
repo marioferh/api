@@ -1,0 +1,431 @@
+apiVersion: apiextensions.k8s.io/v1 # Hack because controller-gen complains if we don't have this
+name: "ClusterMonitoring remote write relabel limit"
+crdName: clustermonitorings.config.openshift.io
+featureGate: ClusterMonitoringConfig
+tests:
+  onCreate:
+    - name: Should accept remoteWrite relabel limit 10 rules
+      initial: |
+        apiVersion: config.openshift.io/v1alpha1
+        kind: ClusterMonitoring
+        spec:
+          userDefined:
+            mode: Disabled
+          prometheusConfig:
+            remoteWrite:
+              - name: rw
+                url: https://remote.example.com/write
+                writeRelabelConfigs:
+                  - {name: rule-000, sourceLabels: [job], regex: "value-000", action: {type: Keep}}
+                  - {name: rule-001, sourceLabels: [job], regex: "value-001", action: {type: Keep}}
+                  - {name: rule-002, sourceLabels: [job], regex: "value-002", action: {type: Keep}}
+                  - {name: rule-003, sourceLabels: [job], regex: "value-003", action: {type: Keep}}
+                  - {name: rule-004, sourceLabels: [job], regex: "value-004", action: {type: Keep}}
+                  - {name: rule-005, sourceLabels: [job], regex: "value-005", action: {type: Keep}}
+                  - {name: rule-006, sourceLabels: [job], regex: "value-006", action: {type: Keep}}
+                  - {name: rule-007, sourceLabels: [job], regex: "value-007", action: {type: Keep}}
+                  - {name: rule-008, sourceLabels: [job], regex: "value-008", action: {type: Keep}}
+                  - {name: rule-009, sourceLabels: [job], regex: "value-009", action: {type: Keep}}
+      expected: |
+        apiVersion: config.openshift.io/v1alpha1
+        kind: ClusterMonitoring
+        spec:
+          userDefined:
+            mode: Disabled
+          prometheusConfig:
+            remoteWrite:
+              - name: rw
+                url: https://remote.example.com/write
+                writeRelabelConfigs:
+                  - {name: rule-000, sourceLabels: [job], regex: "value-000", action: {type: Keep}}
+                  - {name: rule-001, sourceLabels: [job], regex: "value-001", action: {type: Keep}}
+                  - {name: rule-002, sourceLabels: [job], regex: "value-002", action: {type: Keep}}
+                  - {name: rule-003, sourceLabels: [job], regex: "value-003", action: {type: Keep}}
+                  - {name: rule-004, sourceLabels: [job], regex: "value-004", action: {type: Keep}}
+                  - {name: rule-005, sourceLabels: [job], regex: "value-005", action: {type: Keep}}
+                  - {name: rule-006, sourceLabels: [job], regex: "value-006", action: {type: Keep}}
+                  - {name: rule-007, sourceLabels: [job], regex: "value-007", action: {type: Keep}}
+                  - {name: rule-008, sourceLabels: [job], regex: "value-008", action: {type: Keep}}
+                  - {name: rule-009, sourceLabels: [job], regex: "value-009", action: {type: Keep}}
+    - name: Should accept remoteWrite relabel limit 11 rules
+      initial: |
+        apiVersion: config.openshift.io/v1alpha1
+        kind: ClusterMonitoring
+        spec:
+          userDefined:
+            mode: Disabled
+          prometheusConfig:
+            remoteWrite:
+              - name: rw
+                url: https://remote.example.com/write
+                writeRelabelConfigs:
+                  - {name: rule-000, sourceLabels: [job], regex: "value-000", action: {type: Keep}}
+                  - {name: rule-001, sourceLabels: [job], regex: "value-001", action: {type: Keep}}
+                  - {name: rule-002, sourceLabels: [job], regex: "value-002", action: {type: Keep}}
+                  - {name: rule-003, sourceLabels: [job], regex: "value-003", action: {type: Keep}}
+                  - {name: rule-004, sourceLabels: [job], regex: "value-004", action: {type: Keep}}
+                  - {name: rule-005, sourceLabels: [job], regex: "value-005", action: {type: Keep}}
+                  - {name: rule-006, sourceLabels: [job], regex: "value-006", action: {type: Keep}}
+                  - {name: rule-007, sourceLabels: [job], regex: "value-007", action: {type: Keep}}
+                  - {name: rule-008, sourceLabels: [job], regex: "value-008", action: {type: Keep}}
+                  - {name: rule-009, sourceLabels: [job], regex: "value-009", action: {type: Keep}}
+                  - {name: rule-010, sourceLabels: [job], regex: "value-010", action: {type: Keep}}
+      expected: |
+        apiVersion: config.openshift.io/v1alpha1
+        kind: ClusterMonitoring
+        spec:
+          userDefined:
+            mode: Disabled
+          prometheusConfig:
+            remoteWrite:
+              - name: rw
+                url: https://remote.example.com/write
+                writeRelabelConfigs:
+                  - {name: rule-000, sourceLabels: [job], regex: "value-000", action: {type: Keep}}
+                  - {name: rule-001, sourceLabels: [job], regex: "value-001", action: {type: Keep}}
+                  - {name: rule-002, sourceLabels: [job], regex: "value-002", action: {type: Keep}}
+                  - {name: rule-003, sourceLabels: [job], regex: "value-003", action: {type: Keep}}
+                  - {name: rule-004, sourceLabels: [job], regex: "value-004", action: {type: Keep}}
+                  - {name: rule-005, sourceLabels: [job], regex: "value-005", action: {type: Keep}}
+                  - {name: rule-006, sourceLabels: [job], regex: "value-006", action: {type: Keep}}
+                  - {name: rule-007, sourceLabels: [job], regex: "value-007", action: {type: Keep}}
+                  - {name: rule-008, sourceLabels: [job], regex: "value-008", action: {type: Keep}}
+                  - {name: rule-009, sourceLabels: [job], regex: "value-009", action: {type: Keep}}
+                  - {name: rule-010, sourceLabels: [job], regex: "value-010", action: {type: Keep}}
+    - name: Should accept remoteWrite relabel limit 100 rules
+      initial: |
+        apiVersion: config.openshift.io/v1alpha1
+        kind: ClusterMonitoring
+        spec:
+          userDefined:
+            mode: Disabled
+          prometheusConfig:
+            remoteWrite:
+              - name: rw
+                url: https://remote.example.com/write
+                writeRelabelConfigs:
+                  - {name: rule-000, sourceLabels: [job], regex: "value-000", action: {type: Keep}}
+                  - {name: rule-001, sourceLabels: [job], regex: "value-001", action: {type: Keep}}
+                  - {name: rule-002, sourceLabels: [job], regex: "value-002", action: {type: Keep}}
+                  - {name: rule-003, sourceLabels: [job], regex: "value-003", action: {type: Keep}}
+                  - {name: rule-004, sourceLabels: [job], regex: "value-004", action: {type: Keep}}
+                  - {name: rule-005, sourceLabels: [job], regex: "value-005", action: {type: Keep}}
+                  - {name: rule-006, sourceLabels: [job], regex: "value-006", action: {type: Keep}}
+                  - {name: rule-007, sourceLabels: [job], regex: "value-007", action: {type: Keep}}
+                  - {name: rule-008, sourceLabels: [job], regex: "value-008", action: {type: Keep}}
+                  - {name: rule-009, sourceLabels: [job], regex: "value-009", action: {type: Keep}}
+                  - {name: rule-010, sourceLabels: [job], regex: "value-010", action: {type: Keep}}
+                  - {name: rule-011, sourceLabels: [job], regex: "value-011", action: {type: Keep}}
+                  - {name: rule-012, sourceLabels: [job], regex: "value-012", action: {type: Keep}}
+                  - {name: rule-013, sourceLabels: [job], regex: "value-013", action: {type: Keep}}
+                  - {name: rule-014, sourceLabels: [job], regex: "value-014", action: {type: Keep}}
+                  - {name: rule-015, sourceLabels: [job], regex: "value-015", action: {type: Keep}}
+                  - {name: rule-016, sourceLabels: [job], regex: "value-016", action: {type: Keep}}
+                  - {name: rule-017, sourceLabels: [job], regex: "value-017", action: {type: Keep}}
+                  - {name: rule-018, sourceLabels: [job], regex: "value-018", action: {type: Keep}}
+                  - {name: rule-019, sourceLabels: [job], regex: "value-019", action: {type: Keep}}
+                  - {name: rule-020, sourceLabels: [job], regex: "value-020", action: {type: Keep}}
+                  - {name: rule-021, sourceLabels: [job], regex: "value-021", action: {type: Keep}}
+                  - {name: rule-022, sourceLabels: [job], regex: "value-022", action: {type: Keep}}
+                  - {name: rule-023, sourceLabels: [job], regex: "value-023", action: {type: Keep}}
+                  - {name: rule-024, sourceLabels: [job], regex: "value-024", action: {type: Keep}}
+                  - {name: rule-025, sourceLabels: [job], regex: "value-025", action: {type: Keep}}
+                  - {name: rule-026, sourceLabels: [job], regex: "value-026", action: {type: Keep}}
+                  - {name: rule-027, sourceLabels: [job], regex: "value-027", action: {type: Keep}}
+                  - {name: rule-028, sourceLabels: [job], regex: "value-028", action: {type: Keep}}
+                  - {name: rule-029, sourceLabels: [job], regex: "value-029", action: {type: Keep}}
+                  - {name: rule-030, sourceLabels: [job], regex: "value-030", action: {type: Keep}}
+                  - {name: rule-031, sourceLabels: [job], regex: "value-031", action: {type: Keep}}
+                  - {name: rule-032, sourceLabels: [job], regex: "value-032", action: {type: Keep}}
+                  - {name: rule-033, sourceLabels: [job], regex: "value-033", action: {type: Keep}}
+                  - {name: rule-034, sourceLabels: [job], regex: "value-034", action: {type: Keep}}
+                  - {name: rule-035, sourceLabels: [job], regex: "value-035", action: {type: Keep}}
+                  - {name: rule-036, sourceLabels: [job], regex: "value-036", action: {type: Keep}}
+                  - {name: rule-037, sourceLabels: [job], regex: "value-037", action: {type: Keep}}
+                  - {name: rule-038, sourceLabels: [job], regex: "value-038", action: {type: Keep}}
+                  - {name: rule-039, sourceLabels: [job], regex: "value-039", action: {type: Keep}}
+                  - {name: rule-040, sourceLabels: [job], regex: "value-040", action: {type: Keep}}
+                  - {name: rule-041, sourceLabels: [job], regex: "value-041", action: {type: Keep}}
+                  - {name: rule-042, sourceLabels: [job], regex: "value-042", action: {type: Keep}}
+                  - {name: rule-043, sourceLabels: [job], regex: "value-043", action: {type: Keep}}
+                  - {name: rule-044, sourceLabels: [job], regex: "value-044", action: {type: Keep}}
+                  - {name: rule-045, sourceLabels: [job], regex: "value-045", action: {type: Keep}}
+                  - {name: rule-046, sourceLabels: [job], regex: "value-046", action: {type: Keep}}
+                  - {name: rule-047, sourceLabels: [job], regex: "value-047", action: {type: Keep}}
+                  - {name: rule-048, sourceLabels: [job], regex: "value-048", action: {type: Keep}}
+                  - {name: rule-049, sourceLabels: [job], regex: "value-049", action: {type: Keep}}
+                  - {name: rule-050, sourceLabels: [job], regex: "value-050", action: {type: Keep}}
+                  - {name: rule-051, sourceLabels: [job], regex: "value-051", action: {type: Keep}}
+                  - {name: rule-052, sourceLabels: [job], regex: "value-052", action: {type: Keep}}
+                  - {name: rule-053, sourceLabels: [job], regex: "value-053", action: {type: Keep}}
+                  - {name: rule-054, sourceLabels: [job], regex: "value-054", action: {type: Keep}}
+                  - {name: rule-055, sourceLabels: [job], regex: "value-055", action: {type: Keep}}
+                  - {name: rule-056, sourceLabels: [job], regex: "value-056", action: {type: Keep}}
+                  - {name: rule-057, sourceLabels: [job], regex: "value-057", action: {type: Keep}}
+                  - {name: rule-058, sourceLabels: [job], regex: "value-058", action: {type: Keep}}
+                  - {name: rule-059, sourceLabels: [job], regex: "value-059", action: {type: Keep}}
+                  - {name: rule-060, sourceLabels: [job], regex: "value-060", action: {type: Keep}}
+                  - {name: rule-061, sourceLabels: [job], regex: "value-061", action: {type: Keep}}
+                  - {name: rule-062, sourceLabels: [job], regex: "value-062", action: {type: Keep}}
+                  - {name: rule-063, sourceLabels: [job], regex: "value-063", action: {type: Keep}}
+                  - {name: rule-064, sourceLabels: [job], regex: "value-064", action: {type: Keep}}
+                  - {name: rule-065, sourceLabels: [job], regex: "value-065", action: {type: Keep}}
+                  - {name: rule-066, sourceLabels: [job], regex: "value-066", action: {type: Keep}}
+                  - {name: rule-067, sourceLabels: [job], regex: "value-067", action: {type: Keep}}
+                  - {name: rule-068, sourceLabels: [job], regex: "value-068", action: {type: Keep}}
+                  - {name: rule-069, sourceLabels: [job], regex: "value-069", action: {type: Keep}}
+                  - {name: rule-070, sourceLabels: [job], regex: "value-070", action: {type: Keep}}
+                  - {name: rule-071, sourceLabels: [job], regex: "value-071", action: {type: Keep}}
+                  - {name: rule-072, sourceLabels: [job], regex: "value-072", action: {type: Keep}}
+                  - {name: rule-073, sourceLabels: [job], regex: "value-073", action: {type: Keep}}
+                  - {name: rule-074, sourceLabels: [job], regex: "value-074", action: {type: Keep}}
+                  - {name: rule-075, sourceLabels: [job], regex: "value-075", action: {type: Keep}}
+                  - {name: rule-076, sourceLabels: [job], regex: "value-076", action: {type: Keep}}
+                  - {name: rule-077, sourceLabels: [job], regex: "value-077", action: {type: Keep}}
+                  - {name: rule-078, sourceLabels: [job], regex: "value-078", action: {type: Keep}}
+                  - {name: rule-079, sourceLabels: [job], regex: "value-079", action: {type: Keep}}
+                  - {name: rule-080, sourceLabels: [job], regex: "value-080", action: {type: Keep}}
+                  - {name: rule-081, sourceLabels: [job], regex: "value-081", action: {type: Keep}}
+                  - {name: rule-082, sourceLabels: [job], regex: "value-082", action: {type: Keep}}
+                  - {name: rule-083, sourceLabels: [job], regex: "value-083", action: {type: Keep}}
+                  - {name: rule-084, sourceLabels: [job], regex: "value-084", action: {type: Keep}}
+                  - {name: rule-085, sourceLabels: [job], regex: "value-085", action: {type: Keep}}
+                  - {name: rule-086, sourceLabels: [job], regex: "value-086", action: {type: Keep}}
+                  - {name: rule-087, sourceLabels: [job], regex: "value-087", action: {type: Keep}}
+                  - {name: rule-088, sourceLabels: [job], regex: "value-088", action: {type: Keep}}
+                  - {name: rule-089, sourceLabels: [job], regex: "value-089", action: {type: Keep}}
+                  - {name: rule-090, sourceLabels: [job], regex: "value-090", action: {type: Keep}}
+                  - {name: rule-091, sourceLabels: [job], regex: "value-091", action: {type: Keep}}
+                  - {name: rule-092, sourceLabels: [job], regex: "value-092", action: {type: Keep}}
+                  - {name: rule-093, sourceLabels: [job], regex: "value-093", action: {type: Keep}}
+                  - {name: rule-094, sourceLabels: [job], regex: "value-094", action: {type: Keep}}
+                  - {name: rule-095, sourceLabels: [job], regex: "value-095", action: {type: Keep}}
+                  - {name: rule-096, sourceLabels: [job], regex: "value-096", action: {type: Keep}}
+                  - {name: rule-097, sourceLabels: [job], regex: "value-097", action: {type: Keep}}
+                  - {name: rule-098, sourceLabels: [job], regex: "value-098", action: {type: Keep}}
+                  - {name: rule-099, sourceLabels: [job], regex: "value-099", action: {type: Keep}}
+      expected: |
+        apiVersion: config.openshift.io/v1alpha1
+        kind: ClusterMonitoring
+        spec:
+          userDefined:
+            mode: Disabled
+          prometheusConfig:
+            remoteWrite:
+              - name: rw
+                url: https://remote.example.com/write
+                writeRelabelConfigs:
+                  - {name: rule-000, sourceLabels: [job], regex: "value-000", action: {type: Keep}}
+                  - {name: rule-001, sourceLabels: [job], regex: "value-001", action: {type: Keep}}
+                  - {name: rule-002, sourceLabels: [job], regex: "value-002", action: {type: Keep}}
+                  - {name: rule-003, sourceLabels: [job], regex: "value-003", action: {type: Keep}}
+                  - {name: rule-004, sourceLabels: [job], regex: "value-004", action: {type: Keep}}
+                  - {name: rule-005, sourceLabels: [job], regex: "value-005", action: {type: Keep}}
+                  - {name: rule-006, sourceLabels: [job], regex: "value-006", action: {type: Keep}}
+                  - {name: rule-007, sourceLabels: [job], regex: "value-007", action: {type: Keep}}
+                  - {name: rule-008, sourceLabels: [job], regex: "value-008", action: {type: Keep}}
+                  - {name: rule-009, sourceLabels: [job], regex: "value-009", action: {type: Keep}}
+                  - {name: rule-010, sourceLabels: [job], regex: "value-010", action: {type: Keep}}
+                  - {name: rule-011, sourceLabels: [job], regex: "value-011", action: {type: Keep}}
+                  - {name: rule-012, sourceLabels: [job], regex: "value-012", action: {type: Keep}}
+                  - {name: rule-013, sourceLabels: [job], regex: "value-013", action: {type: Keep}}
+                  - {name: rule-014, sourceLabels: [job], regex: "value-014", action: {type: Keep}}
+                  - {name: rule-015, sourceLabels: [job], regex: "value-015", action: {type: Keep}}
+                  - {name: rule-016, sourceLabels: [job], regex: "value-016", action: {type: Keep}}
+                  - {name: rule-017, sourceLabels: [job], regex: "value-017", action: {type: Keep}}
+                  - {name: rule-018, sourceLabels: [job], regex: "value-018", action: {type: Keep}}
+                  - {name: rule-019, sourceLabels: [job], regex: "value-019", action: {type: Keep}}
+                  - {name: rule-020, sourceLabels: [job], regex: "value-020", action: {type: Keep}}
+                  - {name: rule-021, sourceLabels: [job], regex: "value-021", action: {type: Keep}}
+                  - {name: rule-022, sourceLabels: [job], regex: "value-022", action: {type: Keep}}
+                  - {name: rule-023, sourceLabels: [job], regex: "value-023", action: {type: Keep}}
+                  - {name: rule-024, sourceLabels: [job], regex: "value-024", action: {type: Keep}}
+                  - {name: rule-025, sourceLabels: [job], regex: "value-025", action: {type: Keep}}
+                  - {name: rule-026, sourceLabels: [job], regex: "value-026", action: {type: Keep}}
+                  - {name: rule-027, sourceLabels: [job], regex: "value-027", action: {type: Keep}}
+                  - {name: rule-028, sourceLabels: [job], regex: "value-028", action: {type: Keep}}
+                  - {name: rule-029, sourceLabels: [job], regex: "value-029", action: {type: Keep}}
+                  - {name: rule-030, sourceLabels: [job], regex: "value-030", action: {type: Keep}}
+                  - {name: rule-031, sourceLabels: [job], regex: "value-031", action: {type: Keep}}
+                  - {name: rule-032, sourceLabels: [job], regex: "value-032", action: {type: Keep}}
+                  - {name: rule-033, sourceLabels: [job], regex: "value-033", action: {type: Keep}}
+                  - {name: rule-034, sourceLabels: [job], regex: "value-034", action: {type: Keep}}
+                  - {name: rule-035, sourceLabels: [job], regex: "value-035", action: {type: Keep}}
+                  - {name: rule-036, sourceLabels: [job], regex: "value-036", action: {type: Keep}}
+                  - {name: rule-037, sourceLabels: [job], regex: "value-037", action: {type: Keep}}
+                  - {name: rule-038, sourceLabels: [job], regex: "value-038", action: {type: Keep}}
+                  - {name: rule-039, sourceLabels: [job], regex: "value-039", action: {type: Keep}}
+                  - {name: rule-040, sourceLabels: [job], regex: "value-040", action: {type: Keep}}
+                  - {name: rule-041, sourceLabels: [job], regex: "value-041", action: {type: Keep}}
+                  - {name: rule-042, sourceLabels: [job], regex: "value-042", action: {type: Keep}}
+                  - {name: rule-043, sourceLabels: [job], regex: "value-043", action: {type: Keep}}
+                  - {name: rule-044, sourceLabels: [job], regex: "value-044", action: {type: Keep}}
+                  - {name: rule-045, sourceLabels: [job], regex: "value-045", action: {type: Keep}}
+                  - {name: rule-046, sourceLabels: [job], regex: "value-046", action: {type: Keep}}
+                  - {name: rule-047, sourceLabels: [job], regex: "value-047", action: {type: Keep}}
+                  - {name: rule-048, sourceLabels: [job], regex: "value-048", action: {type: Keep}}
+                  - {name: rule-049, sourceLabels: [job], regex: "value-049", action: {type: Keep}}
+                  - {name: rule-050, sourceLabels: [job], regex: "value-050", action: {type: Keep}}
+                  - {name: rule-051, sourceLabels: [job], regex: "value-051", action: {type: Keep}}
+                  - {name: rule-052, sourceLabels: [job], regex: "value-052", action: {type: Keep}}
+                  - {name: rule-053, sourceLabels: [job], regex: "value-053", action: {type: Keep}}
+                  - {name: rule-054, sourceLabels: [job], regex: "value-054", action: {type: Keep}}
+                  - {name: rule-055, sourceLabels: [job], regex: "value-055", action: {type: Keep}}
+                  - {name: rule-056, sourceLabels: [job], regex: "value-056", action: {type: Keep}}
+                  - {name: rule-057, sourceLabels: [job], regex: "value-057", action: {type: Keep}}
+                  - {name: rule-058, sourceLabels: [job], regex: "value-058", action: {type: Keep}}
+                  - {name: rule-059, sourceLabels: [job], regex: "value-059", action: {type: Keep}}
+                  - {name: rule-060, sourceLabels: [job], regex: "value-060", action: {type: Keep}}
+                  - {name: rule-061, sourceLabels: [job], regex: "value-061", action: {type: Keep}}
+                  - {name: rule-062, sourceLabels: [job], regex: "value-062", action: {type: Keep}}
+                  - {name: rule-063, sourceLabels: [job], regex: "value-063", action: {type: Keep}}
+                  - {name: rule-064, sourceLabels: [job], regex: "value-064", action: {type: Keep}}
+                  - {name: rule-065, sourceLabels: [job], regex: "value-065", action: {type: Keep}}
+                  - {name: rule-066, sourceLabels: [job], regex: "value-066", action: {type: Keep}}
+                  - {name: rule-067, sourceLabels: [job], regex: "value-067", action: {type: Keep}}
+                  - {name: rule-068, sourceLabels: [job], regex: "value-068", action: {type: Keep}}
+                  - {name: rule-069, sourceLabels: [job], regex: "value-069", action: {type: Keep}}
+                  - {name: rule-070, sourceLabels: [job], regex: "value-070", action: {type: Keep}}
+                  - {name: rule-071, sourceLabels: [job], regex: "value-071", action: {type: Keep}}
+                  - {name: rule-072, sourceLabels: [job], regex: "value-072", action: {type: Keep}}
+                  - {name: rule-073, sourceLabels: [job], regex: "value-073", action: {type: Keep}}
+                  - {name: rule-074, sourceLabels: [job], regex: "value-074", action: {type: Keep}}
+                  - {name: rule-075, sourceLabels: [job], regex: "value-075", action: {type: Keep}}
+                  - {name: rule-076, sourceLabels: [job], regex: "value-076", action: {type: Keep}}
+                  - {name: rule-077, sourceLabels: [job], regex: "value-077", action: {type: Keep}}
+                  - {name: rule-078, sourceLabels: [job], regex: "value-078", action: {type: Keep}}
+                  - {name: rule-079, sourceLabels: [job], regex: "value-079", action: {type: Keep}}
+                  - {name: rule-080, sourceLabels: [job], regex: "value-080", action: {type: Keep}}
+                  - {name: rule-081, sourceLabels: [job], regex: "value-081", action: {type: Keep}}
+                  - {name: rule-082, sourceLabels: [job], regex: "value-082", action: {type: Keep}}
+                  - {name: rule-083, sourceLabels: [job], regex: "value-083", action: {type: Keep}}
+                  - {name: rule-084, sourceLabels: [job], regex: "value-084", action: {type: Keep}}
+                  - {name: rule-085, sourceLabels: [job], regex: "value-085", action: {type: Keep}}
+                  - {name: rule-086, sourceLabels: [job], regex: "value-086", action: {type: Keep}}
+                  - {name: rule-087, sourceLabels: [job], regex: "value-087", action: {type: Keep}}
+                  - {name: rule-088, sourceLabels: [job], regex: "value-088", action: {type: Keep}}
+                  - {name: rule-089, sourceLabels: [job], regex: "value-089", action: {type: Keep}}
+                  - {name: rule-090, sourceLabels: [job], regex: "value-090", action: {type: Keep}}
+                  - {name: rule-091, sourceLabels: [job], regex: "value-091", action: {type: Keep}}
+                  - {name: rule-092, sourceLabels: [job], regex: "value-092", action: {type: Keep}}
+                  - {name: rule-093, sourceLabels: [job], regex: "value-093", action: {type: Keep}}
+                  - {name: rule-094, sourceLabels: [job], regex: "value-094", action: {type: Keep}}
+                  - {name: rule-095, sourceLabels: [job], regex: "value-095", action: {type: Keep}}
+                  - {name: rule-096, sourceLabels: [job], regex: "value-096", action: {type: Keep}}
+                  - {name: rule-097, sourceLabels: [job], regex: "value-097", action: {type: Keep}}
+                  - {name: rule-098, sourceLabels: [job], regex: "value-098", action: {type: Keep}}
+                  - {name: rule-099, sourceLabels: [job], regex: "value-099", action: {type: Keep}}
+    - name: Should reject remoteWrite relabel limit 101 rules
+      initial: |
+        apiVersion: config.openshift.io/v1alpha1
+        kind: ClusterMonitoring
+        spec:
+          userDefined:
+            mode: Disabled
+          prometheusConfig:
+            remoteWrite:
+              - name: rw
+                url: https://remote.example.com/write
+                writeRelabelConfigs:
+                  - {name: rule-000, sourceLabels: [job], regex: "value-000", action: {type: Keep}}
+                  - {name: rule-001, sourceLabels: [job], regex: "value-001", action: {type: Keep}}
+                  - {name: rule-002, sourceLabels: [job], regex: "value-002", action: {type: Keep}}
+                  - {name: rule-003, sourceLabels: [job], regex: "value-003", action: {type: Keep}}
+                  - {name: rule-004, sourceLabels: [job], regex: "value-004", action: {type: Keep}}
+                  - {name: rule-005, sourceLabels: [job], regex: "value-005", action: {type: Keep}}
+                  - {name: rule-006, sourceLabels: [job], regex: "value-006", action: {type: Keep}}
+                  - {name: rule-007, sourceLabels: [job], regex: "value-007", action: {type: Keep}}
+                  - {name: rule-008, sourceLabels: [job], regex: "value-008", action: {type: Keep}}
+                  - {name: rule-009, sourceLabels: [job], regex: "value-009", action: {type: Keep}}
+                  - {name: rule-010, sourceLabels: [job], regex: "value-010", action: {type: Keep}}
+                  - {name: rule-011, sourceLabels: [job], regex: "value-011", action: {type: Keep}}
+                  - {name: rule-012, sourceLabels: [job], regex: "value-012", action: {type: Keep}}
+                  - {name: rule-013, sourceLabels: [job], regex: "value-013", action: {type: Keep}}
+                  - {name: rule-014, sourceLabels: [job], regex: "value-014", action: {type: Keep}}
+                  - {name: rule-015, sourceLabels: [job], regex: "value-015", action: {type: Keep}}
+                  - {name: rule-016, sourceLabels: [job], regex: "value-016", action: {type: Keep}}
+                  - {name: rule-017, sourceLabels: [job], regex: "value-017", action: {type: Keep}}
+                  - {name: rule-018, sourceLabels: [job], regex: "value-018", action: {type: Keep}}
+                  - {name: rule-019, sourceLabels: [job], regex: "value-019", action: {type: Keep}}
+                  - {name: rule-020, sourceLabels: [job], regex: "value-020", action: {type: Keep}}
+                  - {name: rule-021, sourceLabels: [job], regex: "value-021", action: {type: Keep}}
+                  - {name: rule-022, sourceLabels: [job], regex: "value-022", action: {type: Keep}}
+                  - {name: rule-023, sourceLabels: [job], regex: "value-023", action: {type: Keep}}
+                  - {name: rule-024, sourceLabels: [job], regex: "value-024", action: {type: Keep}}
+                  - {name: rule-025, sourceLabels: [job], regex: "value-025", action: {type: Keep}}
+                  - {name: rule-026, sourceLabels: [job], regex: "value-026", action: {type: Keep}}
+                  - {name: rule-027, sourceLabels: [job], regex: "value-027", action: {type: Keep}}
+                  - {name: rule-028, sourceLabels: [job], regex: "value-028", action: {type: Keep}}
+                  - {name: rule-029, sourceLabels: [job], regex: "value-029", action: {type: Keep}}
+                  - {name: rule-030, sourceLabels: [job], regex: "value-030", action: {type: Keep}}
+                  - {name: rule-031, sourceLabels: [job], regex: "value-031", action: {type: Keep}}
+                  - {name: rule-032, sourceLabels: [job], regex: "value-032", action: {type: Keep}}
+                  - {name: rule-033, sourceLabels: [job], regex: "value-033", action: {type: Keep}}
+                  - {name: rule-034, sourceLabels: [job], regex: "value-034", action: {type: Keep}}
+                  - {name: rule-035, sourceLabels: [job], regex: "value-035", action: {type: Keep}}
+                  - {name: rule-036, sourceLabels: [job], regex: "value-036", action: {type: Keep}}
+                  - {name: rule-037, sourceLabels: [job], regex: "value-037", action: {type: Keep}}
+                  - {name: rule-038, sourceLabels: [job], regex: "value-038", action: {type: Keep}}
+                  - {name: rule-039, sourceLabels: [job], regex: "value-039", action: {type: Keep}}
+                  - {name: rule-040, sourceLabels: [job], regex: "value-040", action: {type: Keep}}
+                  - {name: rule-041, sourceLabels: [job], regex: "value-041", action: {type: Keep}}
+                  - {name: rule-042, sourceLabels: [job], regex: "value-042", action: {type: Keep}}
+                  - {name: rule-043, sourceLabels: [job], regex: "value-043", action: {type: Keep}}
+                  - {name: rule-044, sourceLabels: [job], regex: "value-044", action: {type: Keep}}
+                  - {name: rule-045, sourceLabels: [job], regex: "value-045", action: {type: Keep}}
+                  - {name: rule-046, sourceLabels: [job], regex: "value-046", action: {type: Keep}}
+                  - {name: rule-047, sourceLabels: [job], regex: "value-047", action: {type: Keep}}
+                  - {name: rule-048, sourceLabels: [job], regex: "value-048", action: {type: Keep}}
+                  - {name: rule-049, sourceLabels: [job], regex: "value-049", action: {type: Keep}}
+                  - {name: rule-050, sourceLabels: [job], regex: "value-050", action: {type: Keep}}
+                  - {name: rule-051, sourceLabels: [job], regex: "value-051", action: {type: Keep}}
+                  - {name: rule-052, sourceLabels: [job], regex: "value-052", action: {type: Keep}}
+                  - {name: rule-053, sourceLabels: [job], regex: "value-053", action: {type: Keep}}
+                  - {name: rule-054, sourceLabels: [job], regex: "value-054", action: {type: Keep}}
+                  - {name: rule-055, sourceLabels: [job], regex: "value-055", action: {type: Keep}}
+                  - {name: rule-056, sourceLabels: [job], regex: "value-056", action: {type: Keep}}
+                  - {name: rule-057, sourceLabels: [job], regex: "value-057", action: {type: Keep}}
+                  - {name: rule-058, sourceLabels: [job], regex: "value-058", action: {type: Keep}}
+                  - {name: rule-059, sourceLabels: [job], regex: "value-059", action: {type: Keep}}
+                  - {name: rule-060, sourceLabels: [job], regex: "value-060", action: {type: Keep}}
+                  - {name: rule-061, sourceLabels: [job], regex: "value-061", action: {type: Keep}}
+                  - {name: rule-062, sourceLabels: [job], regex: "value-062", action: {type: Keep}}
+                  - {name: rule-063, sourceLabels: [job], regex: "value-063", action: {type: Keep}}
+                  - {name: rule-064, sourceLabels: [job], regex: "value-064", action: {type: Keep}}
+                  - {name: rule-065, sourceLabels: [job], regex: "value-065", action: {type: Keep}}
+                  - {name: rule-066, sourceLabels: [job], regex: "value-066", action: {type: Keep}}
+                  - {name: rule-067, sourceLabels: [job], regex: "value-067", action: {type: Keep}}
+                  - {name: rule-068, sourceLabels: [job], regex: "value-068", action: {type: Keep}}
+                  - {name: rule-069, sourceLabels: [job], regex: "value-069", action: {type: Keep}}
+                  - {name: rule-070, sourceLabels: [job], regex: "value-070", action: {type: Keep}}
+                  - {name: rule-071, sourceLabels: [job], regex: "value-071", action: {type: Keep}}
+                  - {name: rule-072, sourceLabels: [job], regex: "value-072", action: {type: Keep}}
+                  - {name: rule-073, sourceLabels: [job], regex: "value-073", action: {type: Keep}}
+                  - {name: rule-074, sourceLabels: [job], regex: "value-074", action: {type: Keep}}
+                  - {name: rule-075, sourceLabels: [job], regex: "value-075", action: {type: Keep}}
+                  - {name: rule-076, sourceLabels: [job], regex: "value-076", action: {type: Keep}}
+                  - {name: rule-077, sourceLabels: [job], regex: "value-077", action: {type: Keep}}
+                  - {name: rule-078, sourceLabels: [job], regex: "value-078", action: {type: Keep}}
+                  - {name: rule-079, sourceLabels: [job], regex: "value-079", action: {type: Keep}}
+                  - {name: rule-080, sourceLabels: [job], regex: "value-080", action: {type: Keep}}
+                  - {name: rule-081, sourceLabels: [job], regex: "value-081", action: {type: Keep}}
+                  - {name: rule-082, sourceLabels: [job], regex: "value-082", action: {type: Keep}}
+                  - {name: rule-083, sourceLabels: [job], regex: "value-083", action: {type: Keep}}
+                  - {name: rule-084, sourceLabels: [job], regex: "value-084", action: {type: Keep}}
+                  - {name: rule-085, sourceLabels: [job], regex: "value-085", action: {type: Keep}}
+                  - {name: rule-086, sourceLabels: [job], regex: "value-086", action: {type: Keep}}
+                  - {name: rule-087, sourceLabels: [job], regex: "value-087", action: {type: Keep}}
+                  - {name: rule-088, sourceLabels: [job], regex: "value-088", action: {type: Keep}}
+                  - {name: rule-089, sourceLabels: [job], regex: "value-089", action: {type: Keep}}
+                  - {name: rule-090, sourceLabels: [job], regex: "value-090", action: {type: Keep}}
+                  - {name: rule-091, sourceLabels: [job], regex: "value-091", action: {type: Keep}}
+                  - {name: rule-092, sourceLabels: [job], regex: "value-092", action: {type: Keep}}
+                  - {name: rule-093, sourceLabels: [job], regex: "value-093", action: {type: Keep}}
+                  - {name: rule-094, sourceLabels: [job], regex: "value-094", action: {type: Keep}}
+                  - {name: rule-095, sourceLabels: [job], regex: "value-095", action: {type: Keep}}
+                  - {name: rule-096, sourceLabels: [job], regex: "value-096", action: {type: Keep}}
+                  - {name: rule-097, sourceLabels: [job], regex: "value-097", action: {type: Keep}}
+                  - {name: rule-098, sourceLabels: [job], regex: "value-098", action: {type: Keep}}
+                  - {name: rule-099, sourceLabels: [job], regex: "value-099", action: {type: Keep}}
+                  - {name: rule-100, sourceLabels: [job], regex: "value-100", action: {type: Keep}}
+      expectedError: 'must have at most 100 items'
